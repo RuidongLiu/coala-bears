@@ -33,7 +33,7 @@ x = 10
 y = 5;
 
 
-print( 'test' ) 
+print( 'test' )
 '''
 
 
@@ -129,14 +129,14 @@ class PycodestyleBearTest(unittest.TestCase):
         content = multiple_style_errors_file.splitlines()
         with prepare_file(content, None) as (file, fname):
             with execute_bear(self.uut, fname, file) as results:
-                self.assertEqual(len(results), 4)
+                self.assertEqual(len(results), 3)
                 result = results[1]
                 self.assertEqual(result.message,
                                  'E201 whitespace after \'(\'')
                 self.assertEqual(result.origin, 'PycodestyleBear (E201)')
                 self.assertEqual(result.aspect, None)
-                result = results[3]
+                result = results[2]
                 self.assertEqual(result.message,
-                                 'W291 trailing whitespace')
-                self.assertEqual(result.origin, 'PycodestyleBear (W291)')
+                                 'E202 whitespace after \')\'')
+                self.assertEqual(result.origin, 'PycodestyleBear (E202)')
                 self.assertEqual(result.aspect, None)
