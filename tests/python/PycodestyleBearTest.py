@@ -137,6 +137,6 @@ class PycodestyleBearTest(unittest.TestCase):
                 self.assertEqual(result.aspect, None)
                 result = results[3]
                 self.assertEqual(result.message,
-                                'W291 trailing whitespace')
+                                 'W291 trailing whitespace')
                 self.assertEqual(result.origin, 'PycodestyleBear (W291)')
                 self.assertEqual(result.aspect, None)
