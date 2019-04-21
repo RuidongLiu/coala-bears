@@ -27,6 +27,16 @@ def hello():
     print("hello world")
 '''
 
+
+multiple_style_errors_file = '''
+x = 10
+y = 5;
+
+
+print( 'test' ) 
+'''
+
+
 file_with_very_long_line = ('def ' + 'h' * 1000 + '():\n' +
                             '    print("hello")')
 
@@ -114,3 +124,19 @@ class PycodestyleBearTest(unittest.TestCase):
                                  'E501 line too long (106 > 30 characters)')
                 self.assertEqual(result.origin, 'PycodestyleBear (E501)')
                 self.assertEqual(result.aspect, LineLength('py'))
+
+    def test_multiple_style_errors(self):
+        content = multiple_style_errors_file.splitlines()
+        with prepare_file(content, None) as (file, fname):
+            with execute_bear(self.uut, fname, file) as results:
+                self.assertEqual(len(results), 4)
+                result = results[1]
+                self.assertEqual(result.message,
+                                 'E201 whitespace after \'(\'')
+                self.assertEqual(result.origin, 'PycodestyleBear (E201)')
+                self.assertEqual(result.aspect, None)
+                result = results[3]
+                self.assertEqual(result.message,
+                                'W291 trailing whitespace')
+                self.assertEqual(result.origin, 'PycodestyleBear (W291)')
+                self.assertEqual(result.aspect, None)
