@@ -130,6 +130,11 @@ class PycodestyleBearTest(unittest.TestCase):
         with prepare_file(content, None) as (file, fname):
             with execute_bear(self.uut, fname, file) as results:
                 self.assertEqual(len(results), 3)
+                result = results[0]
+                self.assertEqual(result.message,
+                                 'E703 statement ends with a semicolon')
+                self.assertEqual(result.origin, 'PycodestyleBear (E703)')
+                self.assertEqual(result.aspect, None)
                 result = results[1]
                 self.assertEqual(result.message,
                                  'E201 whitespace after \'(\'')
@@ -137,6 +142,6 @@ class PycodestyleBearTest(unittest.TestCase):
                 self.assertEqual(result.aspect, None)
                 result = results[2]
                 self.assertEqual(result.message,
-                                 'E202 whitespace after \')\'')
+                                 'E202 whitespace before \')\'')
                 self.assertEqual(result.origin, 'PycodestyleBear (E202)')
                 self.assertEqual(result.aspect, None)
